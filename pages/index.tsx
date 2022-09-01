@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Card } from "react-bootstrap";
-import styles from '../styles/Home.module.css'
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
@@ -24,13 +22,15 @@ const Home: NextPage = () => {
       </Form.Text>
       </Form.Group>
 
-    <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-    </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-    </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+
+      
     <Button variant="primary" type="submit">
     Entrar
     </Button>

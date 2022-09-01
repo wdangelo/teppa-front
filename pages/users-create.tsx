@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import api from "../services/axios"
 
 import swal from "sweetalert";
+import { Button, Card, Form } from "react-bootstrap";
+import NavBar from "../components/NavBar";
 
 interface IUsers {
     id: string;
@@ -68,21 +70,42 @@ export default function CreateUser () {
             
         }
         return(
-                <div>
+                <>
+                <NavBar />
+                <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
+
                     <h1>Cadastro de Usuários</h1>
-                <form method="POST" encType="multipart/form-data" onSubmit={handleRegister} >
-                    <p>nome</p>
-                    <input type="text" name="name" id="name"  value={name} onChange={e => setName(e.target.value)} />
-                    <p>email</p>
-                    <input type="text" name="email" id="name" value={email} onChange={e => setEmail(e.target.value)} />
-                    <p>password</p>
-                    <input type="password" name="password" id="password" value={password} onChange={e => setPassword(e.target.value)} />
-                    <p>
-                    <button type="submit">Cadastrar</button>
-                    </p>
+                    <Form method="POST" encType="multipart/form-data" onSubmit={handleRegister} >
+
+                    <Form.Group className="mb-3" controlId="formBasicEmail" style={{width: '48rem'}}>
+                        <Form.Label>Nome</Form.Label>
+                        <Form.Control type="name" placeholder="Nome completo" value={name} onChange={e => setName(e.target.value)}  />
+                        <Form.Text className="text-muted">
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Seu email" value={email} onChange={e => setEmail(e.target.value)} />
+                        <Form.Text className="text-muted">
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}  />
+                        </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    </Form.Group>
                     
-                </form>
-            </div>
+                    <Button variant="primary" type="submit">
+                    Cadastrar
+                    </Button>
+
+                </Form>
+                    
+                </Card>
+                </>
         )
     
 }
