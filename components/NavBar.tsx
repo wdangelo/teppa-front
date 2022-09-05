@@ -12,7 +12,7 @@ function NavBar() {
         <Nav.Link eventKey="link-1">Usuários</Nav.Link>
       </Nav.Item>
       <Nav.Item as="li">
-        <Nav.Link eventKey="link-2">Sair</Nav.Link>
+        <Nav.Link eventKey="link-2">Sair X</Nav.Link>
       </Nav.Item>
     </Nav>
   );
