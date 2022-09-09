@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
+import { FiXCircle, FiPlusSquare } from "react-icons/fi";
+import swal from "sweetalert";
 import Table from 'react-bootstrap/Table';
 import { useRouter } from "next/router";
 import api from "../services/axios"
@@ -15,7 +17,7 @@ export default function ListUser () {
         const [name, setName] = useState('')
         const [users, setUsers] = useState<IUsers[]>([])
 
-        //const router = useRouter()
+        const router = useRouter()
 
         try {
             useEffect(() => {
@@ -34,10 +36,32 @@ export default function ListUser () {
             console.log(err)
         }
 
-        async function handleRegister(e: any) {
-            e.preventDefault();
+        async function handleCreate() {
+            router.push('/users-create')
+        }
+
+        async function handleDelete(id: string) {
+            try {
+                await api.delete(`/users/${id}`)
+                swal({
+                    title: "Sucesso",
+                    text: "Usuário removido com sucesso!",
+                    icon: "success"
+                })
+
+                router.push('/users-list')
+
+            } catch (err) {
+                swal({
+                    title: "Erro",
+                    text: `Erro ao remover usuário: ${err}`,
+                    icon: "error"
+                })
+            }
             
         }
+
+        
         return(
 
                 <div>
@@ -45,6 +69,12 @@ export default function ListUser () {
                     
             <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
                 <h1>Usuários</h1>
+                <p>
+                    <button onClick={ () => handleCreate()}>
+                        <FiPlusSquare />
+                    </button>
+                    
+                </p>
                 <Table striped bordered hover style={{ width: '48rem'}}>
 
                 <thead>
@@ -60,6 +90,14 @@ export default function ListUser () {
                                 <tr>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
+                                    <td>
+                                        <button onClick={ () => handleDelete(user.id)}>
+                                            
+                                            <FiXCircle />
+                                        </button>
+                                        
+                                    </td>
+                                    
                                 </tr>
                             </>
                         ) )}

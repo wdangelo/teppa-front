@@ -48,7 +48,7 @@ export default function CreateUser () {
                         title: "Cadastrado com sucesso!",
                         icon: "success"
                     })
-                    router.push("/")
+                    router.push("/users-list")
                 } else if (userMail.length > 0) {
                     swal({
                         title: "Erro",
@@ -56,7 +56,7 @@ export default function CreateUser () {
                         icon: "error"
                     })
 
-                    router.push("/")
+                    router.push("/users-list")
 
 
                 } else if(!data.name || !data.email || !data.password) {
@@ -75,6 +75,7 @@ export default function CreateUser () {
                 <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
 
                     <h1>Cadastro de Usuários</h1>
+                    <p></p>
                     <Form method="POST" encType="multipart/form-data" onSubmit={handleRegister} >
 
                     <Form.Group className="mb-3" controlId="formBasicEmail" style={{width: '48rem'}}>
