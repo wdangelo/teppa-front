@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
-import { FiXCircle, FiPlusSquare } from "react-icons/fi";
+import { FiXCircle, FiPlusSquare,FiEdit } from "react-icons/fi";
 import swal from "sweetalert";
 import Table from 'react-bootstrap/Table';
 import { useRouter } from "next/router";
 import api from "../services/axios"
+import NavBar from "../components/NavBar";
 
 interface IUsers {
     id: string;
@@ -27,7 +28,6 @@ export default function ListUser () {
                     }
                 }).then( res => {
                     setUsers(res.data)
-                    console.log(res.data)
                 })
             }, [name])
             
@@ -38,6 +38,10 @@ export default function ListUser () {
 
         async function handleCreate() {
             router.push('/users-create')
+        }
+
+        async function handleUpdate(id: string) {
+            router.push('/users-update')
         }
 
         async function handleDelete(id: string) {
@@ -63,10 +67,10 @@ export default function ListUser () {
 
         
         return(
-
+            
                 <div>
 
-                    
+            <NavBar />
             <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
                 <h1>Usuários</h1>
                 <p>
@@ -81,6 +85,7 @@ export default function ListUser () {
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
 
@@ -94,6 +99,13 @@ export default function ListUser () {
                                         <button onClick={ () => handleDelete(user.id)}>
                                             
                                             <FiXCircle />
+
+                                        </button>
+
+                                        <button  onClick={ () => handleUpdate(user.id)}>
+                                            
+                                            <FiEdit />
+                                            
                                         </button>
                                         
                                     </td>

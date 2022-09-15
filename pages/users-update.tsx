@@ -6,14 +6,13 @@ import swal from "sweetalert";
 import { Button, Card, Form } from "react-bootstrap";
 import NavBar from "../components/NavBar";
 
-
 interface IUsers {
     id: string;
     name: string;
     email: string;
 }
 
-export default function CreateUser () {
+export default function UsersUpdate () {
     
         const [name, setName] = useState('')
         const [email, setEmail] = useState<string>('')
@@ -26,11 +25,10 @@ export default function CreateUser () {
              useEffect(() => {
                 api.get(`/users/${email}`, {
                     headers: {
-                        Autorization: email
+                        Autozation: email
                     }
                 }).then( res => {
                     setUsers(res.data)
-                    
                     
                 })
             }, [])
@@ -38,32 +36,14 @@ export default function CreateUser () {
 
         async function handleRegister(e: any) {
             e.preventDefault();
-
-
+            
             const data = { name, email, password }
 
                 const userMail = users.filter(item => item.email === email)
-
-                if(!sessionStorage.getItem('token')) {
-                    swal({
-                        title: "Erro ao cadastrar!",
-                        text: "Sem permissão para efetuar o cadastro",
-                        icon: "error"
-                    })
-
-                    router.push('/users-list')
-                }
                 
+
                 if (userMail.length == 0) {
-
-                    const token = sessionStorage.getItem('token')
-
-                    const config = {
-                        headers: { Authorization: `Bearer ${token}` }
-                    };
-
-                    await api.post('/users', data, config)
-
+                    await api.post('/users', data)
                     swal({
                         title: "Cadastrado com sucesso!",
                         icon: "success"
@@ -85,7 +65,7 @@ export default function CreateUser () {
                         text: "verifique o preenchimento dos campos",
                         icon: "error"
                     })
-                }
+                } 
 
             
         }

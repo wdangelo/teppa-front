@@ -14,7 +14,6 @@ export default function Login () {
     
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState('')
-  const [users, setUsers] = useState<IUsers[]>([])
 
   const router = useRouter()
 
@@ -27,15 +26,16 @@ export default function Login () {
             password
         })
 
-        if (session.data.token) {
         
+
+        if (session.data.token) {
+            sessionStorage.setItem('token', session.data.token)
             router.push('users-create')
         }
         
 
     } catch (err) {
 
-        console.log(err)
         swal({
             title: "Login invalido",
             text: "Usuário ou senha incorretos",
