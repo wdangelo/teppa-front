@@ -30,7 +30,7 @@ export default function Login () {
 
         if (session.data.token) {
             sessionStorage.setItem('token', session.data.token)
-            router.push('users-create')
+            router.push('users-list')
         }
         
 
