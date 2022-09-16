@@ -23,8 +23,8 @@ function NavBar() {
       <Nav.Item as="li">
         <Nav.Link eventKey="/users-list" onClick={ () => handleUsersList()} >Usuários</Nav.Link>
       </Nav.Item>
-      <Nav.Item as="li">
-        <Nav.Link eventKey="link-2" onClick={ handleExit} > <FiArrowLeftCircle/></Nav.Link>
+      <Nav.Item  className='justify-content-end'>
+        <Nav.Link eventKey="link-2" onClick={ handleExit} > <FiArrowLeftCircle color='#4169E1' size={24}/></Nav.Link>
       </Nav.Item>
     </Nav>
   );

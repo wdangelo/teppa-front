@@ -6,6 +6,7 @@ import Table from 'react-bootstrap/Table';
 import { useRouter } from "next/router";
 import api from "../services/axios"
 import NavBar from "../components/NavBar";
+import style from "../styles/usersList.module.css"
 
 interface IUsers {
     id: string;
@@ -64,18 +65,18 @@ export default function ListUser () {
             }
             
         }
-
+        
         
         return(
             
-                <div>
+            <div>
 
             <NavBar />
             <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
                 <h1>Usuários</h1>
                 <p>
-                    <button onClick={ () => handleCreate()}>
-                        <FiPlusSquare />
+                    <button className={style.button} onClick={ () => handleCreate()}>
+                        <FiPlusSquare color="#4169E1" size={36}/>
                     </button>
                     
                 </p>
@@ -96,15 +97,15 @@ export default function ListUser () {
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>
-                                        <button onClick={ () => handleDelete(user.id)}>
+                                        <button className={style.button} onClick={ () => handleDelete(user.id)}>
                                             
-                                            <FiXCircle />
+                                            <FiXCircle color="red" />
 
                                         </button>
 
-                                        <button  onClick={ () => handleUpdate(user.id)}>
+                                        <button className={style.button} onClick={ () => handleUpdate(user.id)}>
                                             
-                                            <FiEdit />
+                                            <FiEdit color="#4F4F4F"/>
                                             
                                         </button>
                                         
