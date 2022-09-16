@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import api from "../services/axios"
+import api from "../../services/axios"
 
 import swal from "sweetalert";
 import { Button, Card, Form } from "react-bootstrap";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
 
 interface IUsers {
     id: string;
@@ -19,17 +19,17 @@ export default function UsersUpdate () {
         const [password, setPassword] = useState('')
         const [users, setUsers] = useState<IUsers[]>([])
 
-        const router = useRouter()
 
+        const router = useRouter()
+        const id = router.query.id
 
              useEffect(() => {
-                api.get(`/users/${email}`, {
+                api.get(`/users/${id}`, {
                     headers: {
                         Autozation: email
                     }
                 }).then( res => {
                     setUsers(res.data)
-                    
                 })
             }, [])
             
@@ -37,13 +37,13 @@ export default function UsersUpdate () {
         async function handleRegister(e: any) {
             e.preventDefault();
             
-            const data = { name, email, password }
+            const data = { name, email }
 
                 const userMail = users.filter(item => item.email === email)
                 
 
                 if (userMail.length == 0) {
-                    await api.post('/users', data)
+                    await api.put(`/users/${id}`, data)
                     swal({
                         title: "Cadastrado com sucesso!",
                         icon: "success"
@@ -59,7 +59,7 @@ export default function UsersUpdate () {
                     router.push("/users-list")
 
 
-                } else if(!data.name || !data.email || !data.password) {
+                } else if(!data.name || !data.email ) {
                     swal({
                         title: "Erro ao cadastrar!",
                         text: "verifique o preenchimento dos campos",
@@ -74,30 +74,27 @@ export default function UsersUpdate () {
                 <NavBar />
                 <Card style={{ width: '72rem', height: '32rem', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 'auto', marginRight: 'auto', marginTop: '12rem' }}>
 
-                    <h1>Cadastro de Usuários</h1>
+                    <h1>Atualização de Usuário</h1>
                     <p></p>
                     <Form method="POST" encType="multipart/form-data" onSubmit={handleRegister} >
-
+                    {users.map(user => (
+                        <>
                     <Form.Group className="mb-3" controlId="formBasicEmail" style={{width: '48rem'}}>
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control type="name" placeholder="Nome completo" value={name} onChange={e => setName(e.target.value)}  />
+                        <Form.Control type="name" placeholder={user.name} value={name || user.name } onChange={e => setName(e.target.value)}  />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Seu email" value={email} onChange={e => setEmail(e.target.value)} />
+                        <Form.Control type="email" placeholder={user.email} value={email || user.email } onChange={e => setEmail(e.target.value)} />
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
+                        </>
+                    ))}
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}  />
-                        </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    </Form.Group>
                     
                     <Button variant="primary" type="submit">
                     Cadastrar

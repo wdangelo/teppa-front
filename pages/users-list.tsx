@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { Card } from "react-bootstrap";
 import { FiXCircle, FiPlusSquare,FiEdit } from "react-icons/fi";
 import swal from "sweetalert";
@@ -7,6 +8,7 @@ import { useRouter } from "next/router";
 import api from "../services/axios"
 import NavBar from "../components/NavBar";
 import style from "../styles/usersList.module.css"
+import Link from "next/link";
 
 interface IUsers {
     id: string;
@@ -103,9 +105,11 @@ export default function ListUser () {
 
                                         </button>
 
-                                        <button className={style.button} onClick={ () => handleUpdate(user.id)}>
+                                        <button className={style.button} >
+                                            <Link href={`/users-update/${user.id}`} >
+                                                <FiEdit color="#4F4F4F"/>
+                                            </Link>
                                             
-                                            <FiEdit color="#4F4F4F"/>
                                             
                                         </button>
                                         
